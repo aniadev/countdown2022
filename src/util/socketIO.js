@@ -10,6 +10,7 @@ socketIO = (server) => {
       // console.log("🚀 ~ file: socketIO.js ~ line 5 ~ socket.on ~ data", data);
       let dataObj = JSON.parse(data);
       let newMessage = new Messages(dataObj);
+      console.log(dataObj);
       newMessage
         .save()
         .then((result) => {

@@ -1,5 +1,5 @@
-// const SERVER_URI = "http://localhost:8080";
-const SERVER_URI = "https://xinchao2022.herokuapp.com";
+const SERVER_URI = "http://localhost:8080";
+// const SERVER_URI = "https://xinchao2022.herokuapp.com";
 
 // Countdown display
 var deadline = new Date("feb 1, 2022 00:00:00").getTime();
