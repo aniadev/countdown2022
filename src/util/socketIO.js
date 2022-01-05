@@ -13,7 +13,7 @@ socketIO = (server) => {
       newMessage
         .save()
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           io.emit("message", JSON.stringify(result)); // tra ve kem them msgId
         })
         .catch((err) => {

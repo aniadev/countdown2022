@@ -17,7 +17,7 @@ const MessengerSchema = new mongoose.Schema({
   },
   time: {
     type: Date,
-    default: Date(),
+    default: Date.now(),
   },
 });
 
