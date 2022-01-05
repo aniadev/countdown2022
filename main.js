@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 app.get("/msg", (req, res) => {
   let _page = req.query._p || 0;
   Messages.find()
-    .sort({ time: -1 })
+    .sort({ _id: -1 })
     .skip(_page * 10)
     .limit(10)
     .exec((err, result) => {
