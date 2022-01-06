@@ -197,7 +197,7 @@ getMessage(0)
   .then((response) => {
     if (response.success === true) {
       const oldMsg = response.query;
-      console.log(oldMsg);
+      // console.log(oldMsg);
       oldMsg.map((msg) => {
         addOlderMessage(
           msg._id,
@@ -345,8 +345,10 @@ document.getElementById("fireworks-btn").addEventListener("click", () => {
   if (fireworkCounter > fireworkLimit) {
     fireworkCounter = 0;
     document.getElementById("fireworks-btn").disabled = true;
+    document.getElementById("fireworks-btn").innerText = "Bắn chậm thôi !";
     setTimeout(() => {
       document.getElementById("fireworks-btn").disabled = false;
+      document.getElementById("fireworks-btn").innerText = "Bắn 1 quả pháo 🧨";
     }, 5000);
   } else {
     fireworkCounter++;

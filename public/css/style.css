@@ -33,12 +33,7 @@ body::after {
   width: 100%;
   height: 100%;
 }
-.firework-btn {
-  position: absolute;
-  z-index: 10;
-  top: 20px;
-  left: 20px;
-}
+
 .countdown{
   padding-top: 30px;
 }
@@ -172,6 +167,16 @@ h2 {
   width: 100%;
   border-radius: 4px;
   /* border: 1px solid #000; */
+}
+.chatbox-form--header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+.firework-btn {
+  position: relative;
+  z-index: 10;
 }
 .chatbox-form--name {
   height: 24px;

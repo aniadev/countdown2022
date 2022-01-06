@@ -74,7 +74,7 @@ function Firework(sx, sy, tx, ty) {
   this.angle = Math.atan2(ty - sy, tx - sx);
   this.speed = 2;
   this.acceleration = 1.05;
-  this.brightness = random(50, 70);
+  this.brightness = random(5, 20);
   // circle target indicator radius
   this.targetRadius = 1;
   // sound for fly
@@ -92,7 +92,7 @@ Firework.prototype.update = function (index) {
   this.coordinates.unshift([this.x, this.y]);
 
   // cycle the circle target indicator radius
-  if (this.targetRadius < 8) {
+  if (this.targetRadius < 12) {
     this.targetRadius += 0.3;
   } else {
     this.targetRadius = 1;
@@ -163,10 +163,10 @@ function Particle(x, y) {
   this.gravity = 1;
   // set the hue to a random number +-50 of the overall hue variable
   this.hue = random(hue - 50, hue + 50);
-  this.brightness = random(50, 80);
+  this.brightness = random(5, 15);
   this.alpha = 1;
   // set how fast the particle fades out
-  this.decay = random(0.015, 0.03);
+  this.decay = random(0.005, 0.03);
 }
 
 // update particle
