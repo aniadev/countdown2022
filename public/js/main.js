@@ -1,5 +1,7 @@
 // const SERVER_URI = "http://localhost:8080";
 const SERVER_URI = "https://xinchao2022.herokuapp.com";
+var msgPage = 1;
+var msgPending = false;
 
 // Countdown display
 var deadline = new Date("feb 1, 2022 00:00:00").getTime();
@@ -106,7 +108,7 @@ function createMsgElement(elData) {
   let msgElement = `
   <li id="${_msgId}" class="msg-item ${owner ? "owner" : ""}">
       <span class="msg-name">
-      ${_nickname} <span style="font-family: Sans-serif; font-weight: 300; font-size:12px">
+      ${_nickname} <span style="font-family: Sans-serif; font-weight: 300; font-size:12px; color:#b2bec3;">
       ${renderTime(_time)} </span> 
   </span>
     <span class="msg-text">${_newMessage}</span>
@@ -174,17 +176,16 @@ msgForm.addEventListener("submit", (e) => {
 });
 
 // load older message
-async function getMessage(_params) {
-  const response = await fetch("/msg", {
+async function getMessage(_page) {
+  const response = await fetch("/msg?_p=" + _page, {
     method: "get",
     cache: "no-cache",
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    query: JSON.stringify(_params),
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
-getMessage({ _p: 0 })
+getMessage(0)
   .then((response) => {
     if (response.success === true) {
       const oldMsg = response.query;
@@ -214,7 +215,52 @@ function sendMessage(messageText) {
   };
   socket.emit("message", JSON.stringify(data));
 }
-
+// check msg viewport for get older messages
+function isInViewport(childEl, parentEl) {
+  const childRect = childEl.getBoundingClientRect();
+  const parentRect = parentEl.getBoundingClientRect();
+  return (
+    childRect.top >= parentRect.top &&
+    childRect.left >= parentRect.left &&
+    childRect.bottom <= parentRect.bottom &&
+    childRect.right <= parentRect.right
+  );
+}
+document.getElementById("all-msg").addEventListener("scroll", scrollListener);
+function scrollListener() {
+  let isLastestMsgView = isInViewport(
+    document.getElementById("all-msg").firstChild,
+    document.getElementById("all-msg")
+  );
+  if (isLastestMsgView && !msgPending) {
+    msgPending = true;
+    getMessage(msgPage)
+      .then((response) => {
+        if (response.success === true) {
+          const oldMsg = response.query;
+          console.log(oldMsg);
+          oldMsg.map((msg) => {
+            addOlderMessage(
+              msg._id,
+              msg.userId,
+              msg.name,
+              msg.msg,
+              msg.imgLink,
+              new Date(msg.time)
+            );
+          });
+          // setFocusOnDivWithId(oldMsg[0]._id);
+          let currentPage = parseInt(response.page);
+          msgPage = currentPage + 1;
+          msgPending = false;
+          console.log(`Page: ${msgPage}, Pending: ${msgPending}`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
 // generate id
 function uuidv4() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>

@@ -26,6 +26,7 @@ app.get("/msg", (req, res) => {
       res.json({
         success: true,
         message: "API get all message",
+        page: _page,
         query: result,
       });
     });
