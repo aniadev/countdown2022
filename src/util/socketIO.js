@@ -10,7 +10,7 @@ socketIO = (server) => {
       // console.log("🚀 ~ file: socketIO.js ~ line 5 ~ socket.on ~ data", data);
       let dataObj = JSON.parse(data);
       let newMessage = new Messages(dataObj);
-      console.log(dataObj);
+      // console.log(dataObj);
       newMessage
         .save()
         .then((result) => {
@@ -28,6 +28,9 @@ socketIO = (server) => {
     socket.on("disconnect", () => {
       let count = { count: io.engine.clientsCount };
       io.emit("online", JSON.stringify(count));
+    });
+    socket.on("fireworks", (data) => {
+      io.emit("fireworks", data);
     });
   });
 };

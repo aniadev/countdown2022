@@ -15,6 +15,16 @@
 </head>
 
 <body>
+    <div class="firework-container">
+        <canvas id="firework-canvas"></canvas>
+    </div>
+    <div class="firework-2-container">
+        <canvas id="firework-2-canvas"></canvas>
+
+    </div>
+    <div class="firework-btn">
+        <button class="btn btn-primary btn-sm" id="fireworks-btn">Bắn 1 quả pháo</button>
+    </div>
     <div class="countdown">
         <div class="countdown-block">
             <h2>New year !</h2>
@@ -35,7 +45,9 @@
                     <span class="seconds" id="second"></span>
                     <div class="smalltext">Seconds</div>
                 </div>
-                <p id="time-up"></p>
+            </div>
+            <div class="time-up">
+                <span id="time-up"></span>
             </div>
         </div>
     </div>
@@ -87,7 +99,8 @@
     <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
         integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
         crossorigin="anonymous"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/main.js" type="module"></script>
+    <script src="./js/fireworks_2.js"></script>
 </body>
 
 </html>
