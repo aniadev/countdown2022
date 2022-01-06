@@ -310,7 +310,7 @@ socket.on("online", (data) => {
   document.getElementById("online-counter").innerHTML = JSON.parse(data).count;
 });
 socket.on("message", (newMsg) => {
-  msgObj = JSON.parse(newMsg);
+  let msgObj = JSON.parse(newMsg);
   addNewMessageToChatbox(
     msgObj._id,
     msgObj.userId,
