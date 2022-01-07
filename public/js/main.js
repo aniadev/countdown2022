@@ -1,5 +1,5 @@
-// const SERVER_URI = "http://localhost:8080";
-const SERVER_URI = "https://xinchao2022.herokuapp.com";
+const SERVER_URI = "http://localhost:8080";
+// const SERVER_URI = "https://xinchao2022.herokuapp.com";
 var msgPage = 1;
 var msgPending = true;
 var fireworkLimit = 2;
@@ -9,7 +9,9 @@ import { happynewyear } from "./firework.min.js";
 
 // Countdown display
 var deadline = new Date("feb 1, 2022 00:00:00").getTime();
-// var deadline = new Date(Date.now() + 6000).getTime();
+// var deadline = new Date(Date.now() + 15000).getTime();
+var coundownCongrate = new Audio(`../firework/Countdown-Happy-New-Year.mp3`);
+var hpnyMusic = new Audio(`../firework/HPNY-sound.mp3`);
 var x = setInterval(function () {
   var currentTime = new Date().getTime();
   var t = deadline - currentTime;
@@ -24,15 +26,21 @@ var x = setInterval(function () {
     minutes < 10 ? `0${minutes}` : `${minutes}`;
   document.getElementById("second").innerHTML =
     seconds < 10 ? `0${seconds}` : `${seconds}`;
+  if (t <= 11000) {
+    coundownCongrate.play();
+  }
   if (t <= 0) {
     clearInterval(x);
     document.getElementById("time-up").innerHTML =
       "🎉🧨🎆🎉 CHÚC MỪNG NĂM MỚI 🧨🎊🎋🎇";
+    document.getElementById("countdown-block--header").innerHTML =
+      "HAPPY NEW YEAR 2022 !";
     document.getElementById("day").innerHTML = "00";
     document.getElementById("hour").innerHTML = "00";
     document.getElementById("minute").innerHTML = "00";
     document.getElementById("second").innerHTML = "00";
     happynewyear();
+    hpnyMusic.play();
     fireworkLimit = 20;
   }
 }, 1000);
@@ -349,7 +357,7 @@ document.getElementById("fireworks-btn").addEventListener("click", () => {
     setTimeout(() => {
       document.getElementById("fireworks-btn").disabled = false;
       document.getElementById("fireworks-btn").innerText = "Bắn 1 quả pháo 🧨";
-    }, 5000);
+    }, 10000);
   } else {
     fireworkCounter++;
   }

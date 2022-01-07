@@ -1,4 +1,4 @@
-export const max_fireworks = 2,
+export const max_fireworks = 3,
   max_sparks = 80;
 let canvas = document.getElementById("firework-2-canvas");
 canvas.width = window.innerWidth;

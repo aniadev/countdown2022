@@ -12,6 +12,8 @@ const flySound = [],
 flySound[0] = new Audio(`../firework/Rocket-Fly-By-${1}.wav`);
 flySound[1] = new Audio(`../firework/Rocket-Fly-By-${2}.wav`);
 flySound[2] = new Audio(`../firework/Rocket-Fly-By-${3}.wav`);
+flySound[3] = new Audio(`../firework/Firework-Rocket-1.mp3`);
+flySound[4] = new Audio(`../firework/Firework-Rocket-2.mp3`);
 burstSound[0] = new Audio(`../firework/Mortar-Burst-${1}.wav`);
 burstSound[1] = new Audio(`../firework/Mortar-Burst-${2}.wav`);
 burstSound[2] = new Audio(`../firework/Mortar-Burst-${3}.wav`);
@@ -82,12 +84,12 @@ function Firework(sx, sy, tx, ty) {
   this.angle = Math.atan2(ty - sy, tx - sx);
   this.speed = 2;
   this.acceleration = 1.05;
-  this.brightness = random(5, 20);
+  this.brightness = random(45, 55);
   // circle target indicator radius
   this.targetRadius = 1;
   // sound for fly
 
-  let randomSoundFly = Math.floor(Math.random() * 2);
+  let randomSoundFly = Math.floor(Math.random() * 4);
   let sound = flySound[randomSoundFly].cloneNode(false);
   sound.play();
 }
@@ -158,23 +160,23 @@ function Particle(x, y) {
   this.y = y;
   // track the past coordinates of each particle to create a trail effect, increase the coordinate count to create more prominent trails
   this.coordinates = [];
-  this.coordinateCount = 5;
+  this.coordinateCount = 8;
   while (this.coordinateCount--) {
     this.coordinates.push([this.x, this.y]);
   }
   // set a random angle in all possible directions, in radians
   this.angle = random(0, Math.PI * 2);
-  this.speed = random(1, 10);
+  this.speed = random(1, 20);
   // friction will slow the particle down
   this.friction = 0.95;
   // gravity will be applied and pull the particle down
   this.gravity = 1;
   // set the hue to a random number +-50 of the overall hue variable
   this.hue = random(hue - 50, hue + 50);
-  this.brightness = random(5, 15);
+  this.brightness = random(0, 100);
   this.alpha = 1;
   // set how fast the particle fades out
-  this.decay = random(0.005, 0.03);
+  this.decay = random(0.005, 0.01);
 }
 
 // update particle
@@ -220,7 +222,7 @@ Particle.prototype.draw = function () {
 // create particle group/explosion
 function createParticles(x, y) {
   // increase the particle count for a bigger explosion, beware of the canvas performance hit with the increased particles though
-  var particleCount = 30;
+  var particleCount = parseInt(random(30, 80));
   while (particleCount--) {
     particles.push(new Particle(x, y));
   }
