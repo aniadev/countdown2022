@@ -7,7 +7,15 @@ window.requestAnimFrame = (function () {
     window.mozRequestAnimationFrame
   );
 })();
-
+const flySound = [],
+  burstSound = [];
+flySound[0] = new Audio(`../firework/Rocket-Fly-By-${1}.wav`);
+flySound[1] = new Audio(`../firework/Rocket-Fly-By-${2}.wav`);
+flySound[2] = new Audio(`../firework/Rocket-Fly-By-${3}.wav`);
+burstSound[0] = new Audio(`../firework/Mortar-Burst-${1}.wav`);
+burstSound[1] = new Audio(`../firework/Mortar-Burst-${2}.wav`);
+burstSound[2] = new Audio(`../firework/Mortar-Burst-${3}.wav`);
+burstSound[3] = new Audio(`../firework/Mortar-Burst-${4}.wav`);
 // now we will setup our basic variables for the demo
 var canvas = document.getElementById("firework-canvas"),
   ctx = canvas.getContext("2d"),
@@ -79,8 +87,8 @@ function Firework(sx, sy, tx, ty) {
   this.targetRadius = 1;
   // sound for fly
 
-  let randomSoundFly = Math.floor(Math.random() * 3 + 1);
-  let sound = new Audio(`/firework/Rocket-Fly-By-${randomSoundFly}.wav`);
+  let randomSoundFly = Math.floor(Math.random() * 2);
+  let sound = flySound[randomSoundFly].cloneNode(false);
   sound.play();
 }
 
@@ -116,8 +124,8 @@ Firework.prototype.update = function (index) {
     createParticles(this.tx, this.ty);
     // remove the firework, use the index passed into the update function to determine which to remove
     fireworks.splice(index, 1);
-    let randomSound = Math.floor(Math.random() * 4 + 1);
-    let sound = new Audio(`/firework/Mortar-Burst-${randomSound}.wav`);
+    let randomBurstSound = Math.floor(Math.random() * 3);
+    let sound = burstSound[randomBurstSound].cloneNode(false);
     sound.play();
   } else {
     // target not reached, keep traveling

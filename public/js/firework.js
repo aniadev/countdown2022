@@ -5,6 +5,15 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let context = canvas.getContext("2d");
 let fireworks = [];
+const flySound = [],
+  burstSound = [];
+flySound[0] = new Audio(`../firework/Rocket-Fly-By-${1}.wav`);
+flySound[1] = new Audio(`../firework/Rocket-Fly-By-${2}.wav`);
+flySound[2] = new Audio(`../firework/Rocket-Fly-By-${3}.wav`);
+burstSound[0] = new Audio(`../firework/Mortar-Burst-${1}.wav`);
+burstSound[1] = new Audio(`../firework/Mortar-Burst-${2}.wav`);
+burstSound[2] = new Audio(`../firework/Mortar-Burst-${3}.wav`);
+burstSound[3] = new Audio(`../firework/Mortar-Burst-${4}.wav`);
 export function happynewyear() {
   for (let i = 0; i < max_fireworks; i++) {
     let firework = {
@@ -61,8 +70,8 @@ function explode() {
       firework.age++;
       if (firework.age > 100 && Math.random() < 0.05) {
         resetFirework(firework);
-        let randomSoundFly = Math.floor(Math.random() * 3 + 1);
-        let sound = new Audio(`/firework/Rocket-Fly-By-${randomSoundFly}.wav`);
+        let randomSoundFly = Math.floor(Math.random() * 2);
+        let sound = flySound[randomSoundFly].cloneNode(false);
         sound.play();
       }
     } else {
@@ -80,8 +89,8 @@ function explode() {
       }
       if (Math.random() < 0.001 || firework.y < 200) {
         firework.phase = "explode";
-        let randomSound = Math.floor(Math.random() * 4 + 1);
-        let sound = new Audio(`/firework/Mortar-Burst-${randomSound}.wav`);
+        let randomBurstSound = Math.floor(Math.random() * 3);
+        let sound = burstSound[randomBurstSound].cloneNode(false);
         sound.play();
       }
     }

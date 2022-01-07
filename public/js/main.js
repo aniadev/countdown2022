@@ -5,7 +5,7 @@ var msgPending = true;
 var fireworkLimit = 2;
 var fireworkCounter = 0;
 // Firework handler
-import { happynewyear } from "./firework.js";
+import { happynewyear } from "./firework.min.js";
 
 // Countdown display
 var deadline = new Date("feb 1, 2022 00:00:00").getTime();
@@ -333,7 +333,7 @@ socket.on("fireworks", (data) => {
     null,
     new Date(Date.now())
   );
-  console.log(fireworkData);
+  // console.log(fireworkData);
 });
 document.getElementById("fireworks-btn").addEventListener("click", () => {
   fireworksPowered();
