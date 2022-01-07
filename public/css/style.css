@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 body {
+  min-width: 720px;
 }
 body::after {
   content: '';
@@ -202,4 +203,33 @@ h2 {
 .form-inline .send-btn:hover{
   font-size: 21px;
   color: #33ff00;
+}
+
+.notification {
+  position: absolute;
+  bottom: 90px;
+  right: 5px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+  background: #dfe4ea71;
+  overflow: auto;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+.notification .msg-name {
+  font-size: 14px;
+}
+.notification::-webkit-scrollbar {
+  width: 4px;
+}
+.notification::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.notification::-webkit-scrollbar-thumb {
+  background: #82ccdd;
 }

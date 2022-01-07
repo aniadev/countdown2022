@@ -1,2 +1,5 @@
 /node_modules
 .env
+/public/js/main.js
+/public/js/firework.js
+/public/js/firework_2.js

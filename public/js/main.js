@@ -1,5 +1,5 @@
-const SERVER_URI = "http://localhost:8080";
-// const SERVER_URI = "https://xinchao2022.herokuapp.com";
+// const SERVER_URI = "http://localhost:8080";
+const SERVER_URI = "https://xinchao2022.herokuapp.com";
 var msgPage = 1;
 var msgPending = true;
 var fireworkLimit = 2;
@@ -35,10 +35,10 @@ var x = setInterval(function () {
       "🎉🧨🎆🎉 CHÚC MỪNG NĂM MỚI 🧨🎊🎋🎇";
     document.getElementById("countdown-block--header").innerHTML =
       "HAPPY NEW YEAR 2022 !";
-    document.getElementById("day").innerHTML = "00";
-    document.getElementById("hour").innerHTML = "00";
-    document.getElementById("minute").innerHTML = "00";
-    document.getElementById("second").innerHTML = "00";
+    document.getElementById("day").innerHTML = "---";
+    document.getElementById("hour").innerHTML = "---";
+    document.getElementById("minute").innerHTML = "---";
+    document.getElementById("second").innerHTML = "---";
     happynewyear();
     hpnyMusic.play();
     fireworkLimit = 20;
@@ -91,9 +91,25 @@ function addNewMessageToChatbox(
   _time
 ) {
   //;
+  _time = _time || new Date(Date.now());
   let elData = { _msgId, _userId, _nickname, _newMessage, _imgLink, _time };
   let msgElement = createMsgElement(elData);
   document.getElementById("all-msg").append(htmlToElement(msgElement));
+  setFocusOnDivWithId(_msgId);
+}
+function addNewMessageToNoti(
+  _msgId,
+  _userId,
+  _nickname,
+  _newMessage,
+  _imgLink,
+  _time
+) {
+  //;
+  _time = _time || new Date(Date.now());
+  let elData = { _msgId, _userId, _nickname, _newMessage, _imgLink, _time };
+  let msgElement = createMsgElement(elData);
+  document.getElementById("noti-msg").append(htmlToElement(msgElement));
   setFocusOnDivWithId(_msgId);
 }
 function addOlderMessage(
@@ -146,7 +162,6 @@ function htmlToElement(html) {
   return template.content.firstChild;
 }
 // Focus message function
-var autoScroll = false;
 function setFocusOnDivWithId(elementId) {
   const scrollIntoViewOptions = { behavior: "smooth", block: "center" };
   document.getElementById(elementId).scrollIntoView(scrollIntoViewOptions);
@@ -320,12 +335,12 @@ socket.on("online", (data) => {
 socket.on("message", (newMsg) => {
   let msgObj = JSON.parse(newMsg);
   addNewMessageToChatbox(
-    msgObj._id,
+    msgObj._id || uuidv4(),
     msgObj.userId,
     msgObj.name,
     msgObj.msg,
     msgObj.imgLink,
-    new Date(msgObj.time)
+    new Date(msgObj.time || Date.now())
   );
 });
 socket.on("fireworks", (data) => {
@@ -333,7 +348,7 @@ socket.on("fireworks", (data) => {
   if (fireworkData.userId !== getCookie("id")) {
     fireworksPowered();
   }
-  addNewMessageToChatbox(
+  addNewMessageToNoti(
     uuidv4(),
     fireworkData.userId,
     fireworkData.name,
@@ -343,6 +358,10 @@ socket.on("fireworks", (data) => {
   );
   // console.log(fireworkData);
 });
+socket.on("test", (data) => {
+  console.log(data);
+});
+// click btn to fire a firework
 document.getElementById("fireworks-btn").addEventListener("click", () => {
   fireworksPowered();
   let fireworkData = {
@@ -357,7 +376,7 @@ document.getElementById("fireworks-btn").addEventListener("click", () => {
     setTimeout(() => {
       document.getElementById("fireworks-btn").disabled = false;
       document.getElementById("fireworks-btn").innerText = "Bắn 1 quả pháo 🧨";
-    }, 10000);
+    }, 5000);
   } else {
     fireworkCounter++;
   }
