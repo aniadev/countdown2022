@@ -1,5 +1,5 @@
-const SERVER_URI = "http://localhost:8080";
-// const SERVER_URI = "https://xinchao2022.herokuapp.com";
+// const SERVER_URI = "http://localhost:8080";
+const SERVER_URI = "https://xinchao2022.herokuapp.com";
 var msgPage = 1;
 var msgPending = true;
 var fireworkLimit = 2;
