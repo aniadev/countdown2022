@@ -84,7 +84,7 @@ socketIO = (server) => {
       minutes,
       seconds,
     };
-    io.emit("test", JSON.stringify(timeObj));
+    // io.emit("test", JSON.stringify(timeObj));
   }, 1000);
 
   io.on("connect", (socket) => {

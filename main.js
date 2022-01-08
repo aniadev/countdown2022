@@ -23,12 +23,41 @@ app.get("/msg", (req, res) => {
     .skip(_page * 10)
     .limit(10)
     .exec((err, result) => {
+      if (err || !result) {
+        res.json({
+          success: true,
+          message: "API get all message ERROR",
+          page: _page,
+          query: null,
+        });
+      }
       res.json({
         success: true,
         message: "API get all message",
         page: _page,
         query: result,
       });
+    });
+});
+app.get("/name/:id", (req, res) => {
+  Messages.findOne({ userId: req.params.id })
+    .sort({ _id: -1 })
+    .exec((err, result) => {
+      if (result) {
+        res.json({
+          success: true,
+          message: "Get name",
+          id: req.params.id,
+          name: result.name,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "Get name",
+          id: req.params.id,
+          name: null,
+        });
+      }
     });
 });
 // import socketIO
