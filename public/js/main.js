@@ -1,5 +1,5 @@
-// const SERVER_URI = "http://localhost:8080";
-const SERVER_URI = "https://xinchao2022.herokuapp.com";
+const SERVER_URI = "http://localhost:8080";
+// const SERVER_URI = "https://xinchao2022.herokuapp.com";
 var msgPage = 1;
 var msgPending = true;
 var fireworkLimit = 2;
@@ -308,10 +308,14 @@ function uuidv4() {
   );
 }
 // Create a random id if not exist
-if (!document.cookie) {
-  document.cookie = `id=${uuidv4()};expires=${new Date(
-    Date.now() + 3600 * 24 * 14
-  ).getTime()}`;
+if (!getCookie("id")) {
+  setCookie("id", uuidv4(), 14);
+}
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 function getUsername() {
   return document.getElementById("client-name").value || getRandomName();
