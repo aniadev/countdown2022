@@ -57,6 +57,8 @@ var firstNameList = [
   "Sóc",
   "Thỏ",
   "Yasuo",
+  "Ánh sáng",
+  "Lợn",
 ];
 var lastNameList = [
   "Xanh",
@@ -69,6 +71,9 @@ var lastNameList = [
   "Vui Vẻ",
   "Nướng",
   "Vị Chanh",
+  "Đáng Yêu",
+  "Xào Sả Ớt",
+  "Hầm Lá Ngải",
 ];
 
 function getRandomName() {
@@ -302,8 +307,11 @@ function uuidv4() {
     ).toString(16)
   );
 }
+// Create a random id if not exist
 if (!document.cookie) {
-  document.cookie = `id=${uuidv4()}`;
+  document.cookie = `id=${uuidv4()};expires=${new Date(
+    Date.now() + 3600 * 24 * 14
+  ).getTime()}`;
 }
 function getUsername() {
   return document.getElementById("client-name").value || getRandomName();
