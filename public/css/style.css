@@ -109,9 +109,9 @@ h2 {
   font-family: Poppins;
   font-weight: 500;
 }
-.chatbox--header span {
+/* .chatbox--header span {
   
-}
+} */
 .chat-msg-container{
   position: relative;
   display: flex;
@@ -151,9 +151,8 @@ h2 {
   font-size: 14px;
   color: #ff007c;
 }
-.msg-item .msg-text {
-
-}
+/* .msg-item .msg-text {
+} */
 .msg-item img {
   width: 180px;
   object-fit: contain;
